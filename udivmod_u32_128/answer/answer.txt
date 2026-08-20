@@ -1,0 +1,4 @@
+N=128
+semantics=uint32_t unsigned division and remainder
+divisor_zero=not present in test data
+boundary_cases=0/1, UINT_MAX/1, UINT_MAX/UINT_MAX, UINT_MAX/2, INT_MIN-like bit patterns

@@ -1,0 +1,23 @@
+GCCPREFIX ?= loongarch32r-linux-gnusf-
+
+override FLAGS += -nostdinc -nostdlib -fno-builtin -mabi=ilp32s -g
+
+TEXT_BASE := 0x1c000000
+ENTRY     := _start
+CC      := $(GCCPREFIX)gcc
+OBJCOPY := $(GCCPREFIX)objcopy
+OBJDUMP := $(GCCPREFIX)objdump
+SRC   := $(wildcard user-*.s)
+BINS  := $(patsubst %.s,%.bin,$(SRC))
+DUMPS := $(patsubst %.s,%.asm,$(SRC))
+
+.PHONY: all clean
+all: $(BINS) $(DUMPS)
+%.bin: %.elf
+	$(OBJCOPY) -j .text -O binary $< $@
+%.asm: %.elf
+	$(OBJDUMP) -d $< > $@
+%.elf: %.s
+	$(CC) $(FLAGS) -Wl,-Ttext=$(TEXT_BASE) -Wl,-e,$(ENTRY) -o $@ $<
+clean:
+	rm -f user-*.elf user-*.bin user-*.asm

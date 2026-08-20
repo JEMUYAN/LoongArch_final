@@ -1,0 +1,6 @@
+N=1024
+input_address=0x1c400000
+result_address=0x1c401000
+reference=0xf2345678
+expected_count=19
+hit_indices=0,3,17,63,64,127,128,191,255,256,383,511,512,701,767,768,900,1000,1023

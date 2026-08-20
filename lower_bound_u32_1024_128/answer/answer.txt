@@ -1,0 +1,4 @@
+N=1024
+queries=128
+semantics=uint32_t lower_bound
+return=first i with A[i] >= query, or 1024
